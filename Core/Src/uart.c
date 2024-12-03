@@ -1,7 +1,9 @@
 #include "uart.h"
 
 void Uart1_Init( void )	//115200bps@11.0592MHz
-{
+{	
+	P_SW1 &= 0X3F;   //选择P3.0 P3.1为UART引脚
+	
 	SCON  = 0x50;		//8位数据,可变波特率
 	AUXR |= 0x01;		//串口1选择定时器2为波特率发生器
 	AUXR |= 0x04;		//定时器时钟1T模式

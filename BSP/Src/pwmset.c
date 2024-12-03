@@ -1,6 +1,6 @@
 #include "pwmset.h"
 
-void PWMSet( uint16_t num )
+void PWM7Set( uint16_t num )
 {
     PWMStart();
     PWM5T2 = num;
