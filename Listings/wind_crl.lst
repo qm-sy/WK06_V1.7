@@ -1,0 +1,71 @@
+C51 COMPILER V9.60.7.0   WIND_CRL                                                          12/06/2024 16:45:37 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE WIND_CRL
+OBJECT MODULE PLACED IN .\Output\wind_crl.obj
+COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE Emembed\Src\wind_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\BSP\I
+                    -nc;.\Core\Inc;.\Drivers;.\Emembed\Inc;.\Emembed\Inc;.\Middlewares;.\SYSTEM) DEBUG OBJECTEXTEND PRINT(.\Listings\wind_crl
+                    -.lst) OBJECT(.\Output\wind_crl.obj)
+
+line level    source
+
+   1          #include "wind_crl.h"
+   2          
+   3          bit wind_bit = 0;
+   4          
+   5          void wind_crl( uint8_t wind_num )
+   6          {
+   7   1      //    if(wind_bit == 1)       
+   8   1      //    {
+   9   1      //        switch(wind_num)
+  10   1      //        {
+  11   1      //            case 0:
+  12   1      ////                PWMStop();
+  13   1      //                break;
+  14   1      //            
+  15   1      //            case 1:
+  16   1      //                PWMSet(2000);
+  17   1      //                break;
+  18   1      //            
+  19   1      //            case 2:
+  20   1      //                PWMSet(2400);
+  21   1      //                break;
+  22   1      //            
+  23   1      //            case 3:
+  24   1      //                PWMSet(2800);
+  25   1      //                break;
+  26   1      //            
+  27   1      //            case 4:
+  28   1      //                PWMSet(3200);
+  29   1      //                break;
+  30   1      //            
+  31   1      //            case 5:
+  32   1      //                PWMSet(3600);
+  33   1      //                break;
+  34   1      //            
+  35   1      //            case 6:
+  36   1      //                PWMSet(4000);
+  37   1      //                break;
+  38   1      //        }
+  39   1      //        
+  40   1      //    } else {
+  41   1      ////        PWMStop();
+  42   1      //    }
+  43   1      }
+*** WARNING C280 IN LINE 5 OF Emembed\Src\wind_crl.c: 'wind_num': unreferenced local variable
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =      6    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----       1
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.7.0   WIND_CRL                                                          12/06/2024 16:45:37 PAGE 2   
+
+   BIT SIZE         =      1    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

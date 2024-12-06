@@ -1,7 +1,8 @@
-#include "interrupt.h"
+ #include "interrupt.h"
 
 //static bit zero_flag = 0;       //外部中断（过零检测）et0响应flag 响应赋值为1
-bit busy_flag = 0;
+bit busy_flag1  = 0;          //串口1等待接收标志位
+bit busy_flag4  = 0;          //串口4等待接收标志位
 bit rev_end;             //数据包发送完毕标志
 uint8_t rev_buf[128];    //SBUF RI缓冲区
 uint16_t rev_timeout;    //接收超时
@@ -9,12 +10,12 @@ uint8_t rev_bytenum;     //接收计数
 
 //uint16_t phase_shift_time = 58400;
 
-void Uart1Isr() interrupt 4 
+void Uart1_ISR() interrupt 4 
 {   
     if( SCON & TI )
     {
         SCON &= ~TI;
-        busy_flag = 0;
+        busy_flag1 = 0;
     }
     
     if(SCON & RI)
@@ -33,7 +34,21 @@ void Uart1Isr() interrupt 4
     }
 }
 
-void ET0ISR(void) interrupt 0 
+void Uart4_ISR() interrupt 18 using 1
+{   
+    if(S4CON & S4RI)  
+    {
+        S4CON &= ~S4RI;
+    }
+    
+    if(S4CON & S4TI)            
+    {  
+        S4CON &= ~S4TI;  
+        busy_flag4 = 0;
+    }
+}
+
+void ET0_ISR(void) interrupt 0 
 {
     // tempchannel1 = tempchannel2 = tempchannel3 = 1;    
     // /*延时移相                  */
@@ -46,7 +61,7 @@ void ET0ISR(void) interrupt 0
     // ET1 = 1; 
 }
 
-void Tim1Isr(void) interrupt 3 
+void Tim1_ISR(void) interrupt 3 
 {
 
     // if((zero_flag == 1)&&(power_bit == 1))
@@ -76,7 +91,7 @@ void Tim1Isr(void) interrupt 3
     // }
 }
 
-void Tim0Isr( void ) interrupt 1   //10ms
+void Tim0_ISR( void ) interrupt 1   //10ms
 {
     if (rev_timeout != 0)  //uart1中设定为50 开始执行
     {
@@ -92,9 +107,56 @@ void Tim0Isr( void ) interrupt 1   //10ms
     } 
 }
 
-void Tim3Isr(void) interrupt 19 
+void Tim3_ISR(void) interrupt 19 
 {
     
 }
 
 
+
+// void Uart4_ISP() interrupt 18 using 1
+// {   
+//     if(S4CON & S4RI)   
+//     {
+//         S4CON &= ~S4RI;
+//         flag = 1;
+//     }
+    
+//     if(S4CON & S4TI)            
+//     {  
+//         S4CON &= ~S4TI;  
+//         busy = 0;
+//     }
+// }
+
+// void sendbyte(uint8_t dat)
+// {
+//         while(busy);
+//         busy = 1;
+//         S4BUF = dat;
+// }
+
+// void sendstring(uint8_t *sendstr)
+// {
+//     while(*sendstr)
+//     {
+//         sendbyte(*sendstr++);
+//     }
+// }
+
+// void rs485()
+// {
+//     if(S4BUF == 0X85 && flag == 1)   
+//     {    
+//         DR4 = 1;
+//         delay_ms(5);    //延时1ms，不可省去
+        
+//         sendstring("madezhenfan \r\n");
+//         delay_ms(5);   //延时根据内容调，发送内容越多，延时越久
+        
+//         DR4 = 0;
+//         delay_ms(5);    //延时1ms，不可省去
+            
+//         flag = 0;
+//     }
+// }

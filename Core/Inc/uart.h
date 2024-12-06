@@ -4,6 +4,8 @@
 #include "sys.h"
 
 void Uart1_Init( void );
+void Uart3_Init( void );
 void Uart4_Init( void );
+
 
 #endif 

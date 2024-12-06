@@ -1,0 +1,191 @@
+C51 COMPILER V9.60.7.0   INTERRUPT                                                         12/06/2024 16:45:36 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE INTERRUPT
+OBJECT MODULE PLACED IN .\Output\interrupt.obj
+COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE BSP\Src\interrupt.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\BSP\Inc;
+                    -.\Core\Inc;.\Drivers;.\Emembed\Inc;.\Emembed\Inc;.\Middlewares;.\SYSTEM) DEBUG OBJECTEXTEND PRINT(.\Listings\interrupt.l
+                    -st) OBJECT(.\Output\interrupt.obj)
+
+line level    source
+
+   1           #include "interrupt.h"
+   2          
+   3          //static bit zero_flag = 0;       //外部中断（过零检测）et0响应flag 响应赋值为1
+   4          bit busy_flag1  = 0;          //串口1等待接收标志位
+   5          bit busy_flag4  = 0;          //串口4等待接收标志位
+   6          bit rev_end;             //数据包发送完毕标志
+   7          uint8_t rev_buf[128];    //SBUF RI缓冲区
+   8          uint16_t rev_timeout;    //接收超时
+   9          uint8_t rev_bytenum;     //接收计数
+  10          
+  11          //uint16_t phase_shift_time = 58400;
+  12          
+  13          void Uart1_ISR() interrupt 4 
+  14          {   
+  15   1          if( SCON & TI )
+  16   1          {
+  17   2              SCON &= ~TI;
+  18   2              busy_flag1 = 0;
+  19   2          }
+  20   1          
+  21   1          if(SCON & RI)
+  22   1          {
+  23   2              SCON &= ~RI;
+  24   2              if ( !rev_end )
+  25   2              {
+  26   3                  if (rev_bytenum > 128)
+  27   3                  {
+  28   4                      rev_bytenum = 0;
+  29   4                  }
+  30   3                  rev_buf[rev_bytenum] = SBUF;  //将SBUF内的数据写入缓冲区
+  31   3                  rev_bytenum++;
+  32   3              }
+  33   2              rev_timeout = 50;
+  34   2          }
+  35   1      }
+  36          
+  37          void Uart4_ISR() interrupt 18 using 1
+  38          {   
+  39   1          if(S4CON & S4RI)  
+  40   1          {
+  41   2              S4CON &= ~S4RI;
+  42   2          }
+  43   1          
+  44   1          if(S4CON & S4TI)            
+  45   1          {  
+  46   2              S4CON &= ~S4TI;  
+  47   2              busy_flag4 = 0;
+  48   2          }
+  49   1      }
+  50          
+  51          void ET0_ISR(void) interrupt 0 
+  52          {
+  53   1          // tempchannel1 = tempchannel2 = tempchannel3 = 1;    
+C51 COMPILER V9.60.7.0   INTERRUPT                                                         12/06/2024 16:45:36 PAGE 2   
+
+  54   1          // /*延时移相                  */
+  55   1          // TL1 = TIM1;                              //设置定时初始值
+  56   1              // TH1 = TIM1>>8;                               //设置定时初始值
+  57   1      
+  58   1          // zero_flag = 1;
+  59   1          
+  60   1          // TR1 = 1;                         //定时器1开始计时      
+  61   1          // ET1 = 1; 
+  62   1      }
+  63          
+  64          void Tim1_ISR(void) interrupt 3 
+  65          {
+  66   1      
+  67   1          // if((zero_flag == 1)&&(power_bit == 1))
+  68   1          // {
+  69   1          //     switch(channel_num)
+  70   1          //     {
+  71   1          //         case 1: {tempchannel1=0; tempchannel2=1; tempchannel3=1;}break;
+  72   1          //         case 2: {tempchannel1=1; tempchannel2=0; tempchannel3=1;}break;
+  73   1          //         case 3: {tempchannel1=1; tempchannel2=1; tempchannel3=0;}break;
+  74   1          //         case 4: {tempchannel1=0; tempchannel2=0; tempchannel3=1;}break;
+  75   1          //         case 5: {tempchannel1=1; tempchannel2=0; tempchannel3=0;}break;
+  76   1          //         case 6: {tempchannel1=0; tempchannel2=1; tempchannel3=0;}break;
+  77   1          //         case 7: {tempchannel1=0; tempchannel2=0; tempchannel3=0;}break;
+  78   1          //     }
+  79   1          //         /*1.发送一个10us的脉冲                */
+  80   1          //         zero_flag = 0; 
+  81   1      
+  82   1          //         TL1 = 0xF7;                              
+  83   1          //         TH1 = 0xFF;                              //10ms脉冲
+  84   1          // }
+  85   1        
+  86   1          // else
+  87   1          // {
+  88   1          //     tempchannel1 = tempchannel2 = tempchannel3 = 1;     //1-0-1的脉冲 2us
+  89   1          //     TR1 = 0;                                
+  90   1          //     ET1 = 0;                  //定时器关闭计时   
+  91   1          // }
+  92   1      }
+  93          
+  94          void Tim0_ISR( void ) interrupt 1   //10ms
+  95          {
+  96   1          if (rev_timeout != 0)  //uart1中设定为50 开始执行
+  97   1          {
+  98   2              rev_timeout--;
+  99   2              if( rev_timeout == 0 )  //超时
+ 100   2              {
+ 101   3                  if( rev_bytenum > 0 )  //接收的数据包不为空
+ 102   3                  {
+ 103   4                      rev_end = 1;   //接收完毕标志位亮起
+ 104   4                      rev_bytenum = 0;  //初始化接收缓冲区
+ 105   4                  }
+ 106   3              }
+ 107   2          } 
+ 108   1      }
+ 109          
+ 110          void Tim3_ISR(void) interrupt 19 
+ 111          {
+ 112   1          
+ 113   1      }
+ 114          
+ 115          
+C51 COMPILER V9.60.7.0   INTERRUPT                                                         12/06/2024 16:45:36 PAGE 3   
+
+ 116          
+ 117          // void Uart4_ISP() interrupt 18 using 1
+ 118          // {   
+ 119          //     if(S4CON & S4RI)   
+ 120          //     {
+ 121          //         S4CON &= ~S4RI;
+ 122          //         flag = 1;
+ 123          //     }
+ 124              
+ 125          //     if(S4CON & S4TI)            
+ 126          //     {  
+ 127          //         S4CON &= ~S4TI;  
+ 128          //         busy = 0;
+ 129          //     }
+ 130          // }
+ 131          
+ 132          // void sendbyte(uint8_t dat)
+ 133          // {
+ 134          //         while(busy);
+ 135          //         busy = 1;
+ 136          //         S4BUF = dat;
+ 137          // }
+ 138          
+ 139          // void sendstring(uint8_t *sendstr)
+ 140          // {
+ 141          //     while(*sendstr)
+ 142          //     {
+ 143          //         sendbyte(*sendstr++);
+ 144          //     }
+ 145          // }
+ 146          
+ 147          // void rs485()
+ 148          // {
+ 149          //     if(S4BUF == 0X85 && flag == 1)   
+ 150          //     {    
+ 151          //         DR4 = 1;
+ 152          //         delay_ms(5);    //延时1ms，不可省去
+ 153                  
+ 154          //         sendstring("madezhenfan \r\n");
+ 155          //         delay_ms(5);   //延时根据内容调，发送内容越多，延时越久
+ 156                  
+ 157          //         DR4 = 0;
+ 158          //         delay_ms(5);    //延时1ms，不可省去
+ 159                      
+ 160          //         flag = 0;
+ 161          //     }
+ 162          // }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    181    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =    131    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =      3    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

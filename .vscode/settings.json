@@ -4,6 +4,13 @@
         "uart.h": "c",
         "gpio.h": "c",
         "eeprom.h": "c",
-        "timer.h": "c"
+        "timer.h": "c",
+        "delay.h": "c",
+        "serial_comport.h": "c",
+        "interrupt.h": "c",
+        "adc.h": "c",
+        "ntc.h": "c",
+        "main.h": "c",
+        "pwmset.h": "c"
     }
 }

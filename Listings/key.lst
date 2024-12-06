@@ -1,0 +1,315 @@
+C51 COMPILER V9.60.7.0   KEY                                                               12/05/2024 10:03:29 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE KEY
+OBJECT MODULE PLACED IN .\Output\key.obj
+COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE Emembed\Src\key.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\BSP\Inc;.\
+                    -Core\Inc;.\Drivers;.\Emembed\Inc;.\Emembed\Inc;.\Middlewares) DEBUG OBJECTEXTEND PRINT(.\Listings\key.lst) OBJECT(.\Outp
+                    -ut\key.obj)
+
+line level    source
+
+   1          #include "key.h"
+*** WARNING C318 IN LINE 1 OF Emembed\Src\key.c: can't open file 'key.h'
+   2          
+   3          #define   ChannelChoose     2
+   4          #define   ModeChoose        4
+   5          #define   FunctionKey       3
+   6          #define   PowerKey          0
+   7          #define   UpKey             1
+   8          #define   DownKey           5
+   9          #define   FanUp             9
+  10          #define   FanDown           13
+  11          
+  12          void key_scan()
+  13          {
+  14   1          if ( scan_start_bit == 1 )
+*** ERROR C202 IN LINE 14 OF Emembed\Src\key.c: 'scan_start_bit': undefined identifier
+  15   1          {
+  16   2              switch(key_val)
+*** ERROR C202 IN LINE 16 OF Emembed\Src\key.c: 'key_val': undefined identifier
+  17   2              {
+  18   3                  case UpKey:
+  19   3                      key2_up();
+  20   3                      delay_ms(50);
+  21   3                      break;
+  22   3                  
+  23   3                  case ChannelChoose:
+  24   3                      key3_channel_temp_choose();
+  25   3                      delay_ms(50);
+  26   3                      break;
+  27   3                  
+  28   3                  case ModeChoose:                    //复用同步切换、mode切换
+  29   3                      key5_mode_sync_choose();
+  30   3                      delay_ms(50);
+  31   3                      break;
+  32   3                      
+  33   3                  case DownKey:
+  34   3                      key6_down();
+  35   3                      delay_ms(50);
+  36   3                      break;
+  37   3                  
+  38   3                  case FanUp:
+  39   3                      key42_fan_up();   
+  40   3                      delay_ms(50); 
+  41   3                      break;
+  42   3                  
+  43   3                  case FanDown:
+  44   3                      key46_fan_down();          
+  45   3                      delay_ms(50);
+  46   3                      break;
+  47   3              }
+  48   2          }
+  49   1      }
+  50          
+C51 COMPILER V9.60.7.0   KEY                                                               12/05/2024 10:03:29 PAGE 2   
+
+  51          void key42_fan_up()
+  52          {
+  53   1          /*1.蜂鸣器响                             */
+  54   1          buzzer = buzzer_bit = 0;
+  55   1      
+  56   1          /*2.风扇档位+1 并刷新显示                 */
+  57   1          wind_num += 1;
+  58   1          if ( wind_num > 6 )
+  59   1          {
+  60   2              wind_num = 6;
+  61   2          }
+  62   1          wind_crl(wind_num);
+  63   1          wind_dis(wind_num);
+  64   1      
+  65   1          /*3.将新的风扇档位记录至eeprom            */
+  66   1          eeprom_data_write();
+  67   1      }
+  68          
+  69          void key46_fan_down()
+  70          {
+  71   1          /*1.蜂鸣器响                             */
+  72   1          buzzer = buzzer_bit = 0;
+  73   1      
+  74   1          /*2.风扇档位+1 并刷新显示                 */
+  75   1          wind_num -= 1;
+  76   1          if ( wind_num < 0)
+  77   1          {
+  78   2              wind_num = 0;
+  79   2          }
+  80   1          wind_crl(wind_num);
+  81   1          wind_dis(wind_num);
+  82   1      
+  83   1          /*3.将新的风扇档位记录至eeprom            */
+  84   1          eeprom_data_write();
+  85   1      }
+  86          
+  87          void key2_up()
+  88          {
+  89   1          /*1.蜂鸣器响                             */
+  90   1          buzzer = buzzer_bit = 0;
+  91   1      
+  92   1          /*2.加热功率+5 并刷新显示                 */
+  93   1          power_num += 5;
+  94   1          if ( power_num > 100 )
+  95   1          {
+  96   2              power_num = 100;
+  97   2          }
+  98   1          power_crl(power_num);
+  99   1          num_dis(power_num);
+ 100   1      
+ 101   1          /*3.将新的功率大小记录至eeprom            */
+ 102   1          eeprom_data_write();
+ 103   1      }
+ 104          
+ 105          void key6_down()
+ 106          {
+ 107   1      
+ 108   1          /*1.蜂鸣器响                             */
+ 109   1          buzzer = buzzer_bit = 0;
+ 110   1      
+ 111   1          /*2.加热功率-5 并刷新显示                 */
+ 112   1          power_num -= 5;
+C51 COMPILER V9.60.7.0   KEY                                                               12/05/2024 10:03:29 PAGE 3   
+
+ 113   1          if ( power_num < 0 )
+ 114   1          {
+ 115   2              power_num = 0;
+ 116   2          }
+ 117   1          power_crl(power_num);
+ 118   1          num_dis(power_num);
+ 119   1      
+ 120   1          /*3.将新的功率大小记录至eeprom            */
+ 121   1          eeprom_data_write();
+ 122   1      }
+ 123          
+ 124          void key3_channel_temp_choose()
+ 125          {
+ 126   1          uint8_t channelchoose_longpress_cnt = 100;
+ 127   1          while((key_val==ChannelChoose)&&(channelchoose_longpress_cnt>0))
+ 128   1          {
+ 129   2              channelchoose_longpress_cnt--; 
+ 130   2              delay_ms(10);
+ 131   2          }
+ 132   1          if ( channelchoose_longpress_cnt == 0 )           //长按1s，开启同步 
+ 133   1          {
+ 134   2              temp_set();
+ 135   2          }
+ 136   1      
+ 137   1          if ( key3_longpress_flag == 0 )                  //防误触   
+ 138   1          {   
+ 139   2              channel_choose();                        //短按，mode切换
+ 140   2          }
+ 141   1      }
+ 142          
+ 143          void temp_set()
+ 144          {
+ 145   1          /*1.蜂鸣器响,去除 %符号，使能 ℃符号                     */
+ 146   1          buzzer = buzzer_bit = 0;
+ 147   1          percentage_dis(DIS_ON);
+ 148   1          celsius_dis(DIS_OFF);
+ 149   1      
+ 150   1          /*2.防误触，以防退出                                    */
+ 151   1          delay_ms(500);
+ 152   1      
+ 153   1          /*3.再次点击ChannelChoose退出预加热温度设置              */
+ 154   1          while(key_val != ChannelChoose)
+ 155   1          {
+ 156   2              if ( temp_blink_flag )               //数字闪烁
+ 157   2              {
+ 158   3                  num_dis(temp_num);  
+ 159   3              } else {
+ 160   3                  lcd_write_val(addr_tab[ADDR_0B],0x00);
+ 161   3                  lcd_write_val(addr_tab[ADDR_0A],0X00);
+ 162   3                  lcd_write_val(addr_tab[ADDR_07],0X00);
+ 163   3                  lcd_write_val(addr_tab[ADDR_06],0X00);
+ 164   3              }
+ 165   2      
+ 166   2              if ( key_val == UpKey )              //温度加
+ 167   2              {
+ 168   3                  buzzer = buzzer_bit = 0;
+ 169   3                  temp_num += 5;
+ 170   3                  if ( temp_num > 200 )
+ 171   3                  {
+ 172   4                      temp_num = 200;
+ 173   4                  }
+ 174   3                  delay_ms(100);                  //防止连点
+C51 COMPILER V9.60.7.0   KEY                                                               12/05/2024 10:03:29 PAGE 4   
+
+ 175   3              }
+ 176   2      
+ 177   2              if ( key_val == DownKey )            //温度减
+ 178   2              {
+ 179   3                  buzzer = buzzer_bit = 0;
+ 180   3                  temp_num -= 5;
+ 181   3                  if ( temp_num < 50 )
+ 182   3                  {
+ 183   4                      temp_num = 50;
+ 184   4                  }
+ 185   3                  delay_ms(100);                  //防止连点
+ 186   3              }
+ 187   2          }
+ 188   1      
+ 189   1          buzzer = buzzer_bit = 0;                //退出声
+ 190   1          key3_longpress_flag = 1;                // key3 防误触标志位亮起   
+ 191   1          num_dis(power_num);                     //防止处于闪烁数字消失阶段，确保数字显示
+ 192   1      
+ 193   1          /*4.去除 ℃符号，使能 %符号                            */
+ 194   1          celsius_dis(DIS_OFF);
+ 195   1          percentage_dis(DIS_ON);
+ 196   1      
+ 197   1          /*5.记录预加热温度值至eeprom                            */
+ 198   1          eeprom_data_write();
+ 199   1      }
+ 200          
+ 201          void channel_choose()
+ 202          {
+ 203   1          /*1.蜂鸣器响                                          */
+ 204   1          buzzer = buzzer_bit = 0;
+ 205   1      
+ 206   1          /*2.加热通道切换 并刷新显示                            */
+ 207   1          channel_num += 1;
+ 208   1          if ( channel_num == 7 )
+ 209   1          {
+ 210   2              channel_num = 1;
+ 211   2          }
+ 212   1          channel_dis(channel_num);
+ 213   1          
+ 214   1          /*3.将新的功率大小记录至eeprom                          */
+ 215   1          eeprom_data_write();
+ 216   1      }
+ 217           
+ 218          void key5_mode_sync_choose()
+ 219          {
+ 220   1          uint8_t modechoose_longpress_cnt = 100;
+ 221   1          while((key_val==ModeChoose)&&(modechoose_longpress_cnt>0))  //长按1s判断，开启同步
+ 222   1          {
+ 223   2              modechoose_longpress_cnt--; 
+ 224   2              delay_ms(10);
+ 225   2          }
+ 226   1          
+ 227   1          if ( modechoose_longpress_cnt == 0 )            
+ 228   1          {
+ 229   2              sync_choose();
+ 230   2          }
+ 231   1      
+ 232   1          if ( key5_longpress_flag == 0 )                //短按，mode切换
+ 233   1          {
+ 234   2              mode_choose();
+ 235   2          }
+ 236   1      }
+C51 COMPILER V9.60.7.0   KEY                                                               12/05/2024 10:03:29 PAGE 5   
+
+ 237          
+ 238          void sync_choose()
+ 239          {
+ 240   1          /*1.蜂鸣器响                                           */
+ 241   1          buzzer = buzzer_bit = 0;
+ 242   1      
+ 243   1          key5_longpress_flag = 1;         // key5 防误触标志位亮起 
+ 244   1      
+ 245   1          /*2.切换同步状态 :开or关  并刷新显示                     */
+ 246   1          sync_bit = ~sync_bit;            
+ 247   1          sync_dis(sync_bit);
+ 248   1      
+ 249   1          /*3.判断同步状态并进行处理                               */
+ 250   1          sync_judge();
+ 251   1      
+ 252   1          /*4.记录同步状态至eeprom                                */
+ 253   1          eeprom_data_write();        
+ 254   1      }           
+ 255          
+ 256          
+ 257          void mode_choose()
+ 258          {
+ 259   1          /*1.蜂鸣器响                                           */
+ 260   1          buzzer = buzzer_bit = 0;
+ 261   1      
+ 262   1          /*2.模式切换 1~5  清屏，然后显示mode序号和 mode字符      */
+ 263   1          mode_num += 1;
+ 264   1          if ( mode_num == 6)
+ 265   1          {
+ 266   2              mode_num = 1;
+ 267   2          }
+ 268   1          lcd_clear();   
+ 269   1          num_dis(mode_num);              
+ 270   1          mode_dis(DIS_ON);       
+ 271   1          delay_ms(500);        
+ 272   1      
+ 273   1          /*3.读取eeprom内记录参数并导入                          */ 
+ 274   1          eeprom_data_read(mode_num);  //
+ 275   1      
+ 276   1          /*4.判断同步状态并进行处理                              */
+ 277   1          sync_judge();       
+ 278   1      
+ 279   1          /*5.二次清屏，然后刷新界面                              */
+ 280   1          lcd_clear();
+ 281   1          sun_dis(~sync_bit);
+ 282   1          sync_dis(sync_bit);
+ 283   1          num_dis(power_num);
+ 284   1          channel_dis(channel_num);
+ 285   1          percentage_dis(DIS_ON);
+ 286   1          wind_dis(wind_num);
+ 287   1      
+ 288   1          /*6.记录同步序号至eeprom                              */
+ 289   1          eeprom_mode_save();         
+ 290   1      }
+ 291          
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  2 ERROR(S)

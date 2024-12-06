@@ -2,7 +2,7 @@
 #define SYS_H
 
 #include <stdint.h>
-#include <STC15W4Kxx.h>
+#include <STC8H.h>
 #include <stdio.h>
 #include <intrins.h>
 

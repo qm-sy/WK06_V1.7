@@ -1,12 +1,11 @@
 #include "pwmset.h"
 
-void PWM7Set( uint16_t num )
+void PWM7_Crl( uint8_t num )
 {
-    PWMStart();
-    PWM5T2 = num;
+    PWMB_CCR7 = 184 * num;
 }
 
-void PWMStart (void )
+void PWM8_Crl( uint8_t num )
 {
-    PWMCR = 0X88;
+    PWMB_CCR8 = 184 * num;
 }

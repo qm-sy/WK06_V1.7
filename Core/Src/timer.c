@@ -1,3 +1,11 @@
+/*
+	TIM0:定时器
+	TIM1:加热
+	TIM2:串口1
+	TIM3:串口三
+	TIM4:串口四
+*/
+
 #include "timer.h"
 
 void Tim0_Init( void )         //11.0592Mhz  10ms

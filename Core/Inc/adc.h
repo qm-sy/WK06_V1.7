@@ -4,7 +4,7 @@
 //#include "../SYSTEM/sys.h"
 #include "sys.h"
 
-void ADCInit( void );
+void ADC_Init( void );
 uint16_t Get_ADC12bitResult( uint8_t channel_x );
 
 #endif 

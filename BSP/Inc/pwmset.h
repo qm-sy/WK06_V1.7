@@ -3,7 +3,7 @@
 
 #include "pwm.h"
 
-void PWMSet( uint16_t num );
-void PWMStart (void );
+void PWM7_Crl( uint8_t num );
+void PWM8_Crl( uint8_t num );
 
 #endif 

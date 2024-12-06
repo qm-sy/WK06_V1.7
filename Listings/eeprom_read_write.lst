@@ -1,0 +1,29 @@
+C51 COMPILER V9.60.7.0   EEPROM_READ_WRITE                                                 12/06/2024 16:45:37 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE EEPROM_READ_WRITE
+OBJECT MODULE PLACED IN .\Output\eeprom_read_write.obj
+COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE Emembed\Src\eeprom_read_write.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDI
+                    -R(.\BSP\Inc;.\Core\Inc;.\Drivers;.\Emembed\Inc;.\Emembed\Inc;.\Middlewares;.\SYSTEM) DEBUG OBJECTEXTEND PRINT(.\Listings
+                    -\eeprom_read_write.lst) OBJECT(.\Output\eeprom_read_write.obj)
+
+line level    source
+
+   1          #include "eeprom_read_write.h"
+   2          
+   3          
+   4           
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

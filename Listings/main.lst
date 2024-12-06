@@ -1,0 +1,60 @@
+C51 COMPILER V9.60.7.0   MAIN                                                              12/06/2024 16:45:36 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Output\main.obj
+COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE Core\Src\main.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\BSP\Inc;.\Co
+                    -re\Inc;.\Drivers;.\Emembed\Inc;.\Emembed\Inc;.\Middlewares;.\SYSTEM) DEBUG OBJECTEXTEND PRINT(.\Listings\main.lst) OBJEC
+                    -T(.\Output\main.obj)
+
+line level    source
+
+   1          #include "main.h"
+   2          #include "serial_comport.h"
+   3          #include "ntc.h"
+   4          #include "pwmset.h"
+   5          
+   6          void main( void )
+   7          {
+   8   1          uint8_t temp = 0;
+   9   1      
+  10   1          P_SW2 |= 0x80;
+  11   1          GPIO_Init();
+  12   1          ADC_Init();
+  13   1          Uart1_Init();
+  14   1          Uart4_Init();
+  15   1          Tim0_Init();
+  16   1          Tim1_Init();
+  17   1          Tim3_Init();
+  18   1          
+  19   1          ET0_Init();
+  20   1          PWM_Init();  
+  21   1          
+  22   1          EA = 1;
+  23   1      
+  24   1          printf("======== code start ========\r\n");  
+  25   1          while (1)
+  26   1          {
+  27   2              temp = (uint8_t)get_temp(1);
+  28   2             // PWM7_Crl(5);
+  29   2              PWM8_Crl(1);
+  30   2              delay_ms(560);
+  31   2              printf(" now temp is: %d \r\n",(int)temp);
+  32   2              //rs485();
+  33   2          }
+  34   1          
+  35   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     92    ----
+   CONSTANT SIZE    =     51    ----
+   XDATA SIZE       =   ----       1
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -67,7 +67,6 @@ sfr         SCON        =           0x98;
     sbit    TI          =           SCON^1;
     sbit    RI          =           SCON^0;
 
-
 sfr         SBUF        =           0x99;
 sfr         S2CON       =           0x9a;
 sfr         S2BUF       =           0x9b;

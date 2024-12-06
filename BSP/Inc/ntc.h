@@ -2,6 +2,7 @@
 #define __NTC_H_
 
 #include "sys.h"
+#include "adc.h"
 
 uint8_t LookupTable( uint16_t *temp_tab, uint8_t tab_num, uint16_t adc_val );
 uint16_t get_temp( uint8_t channle_x );

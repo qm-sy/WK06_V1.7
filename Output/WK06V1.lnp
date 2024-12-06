@@ -1,0 +1,18 @@
+".\Output\STARTUP.obj",
+".\Output\adc.obj",
+".\Output\delay.obj",
+".\Output\eeprom.obj",
+".\Output\gpio.obj",
+".\Output\main.obj",
+".\Output\pwm.obj",
+".\Output\timer.obj",
+".\Output\uart.obj",
+".\Output\interrupt.obj",
+".\Output\ntc.obj",
+".\Output\pwmset.obj",
+".\Output\serial_comport.obj",
+".\Output\eeprom_read_write.obj",
+".\Output\power_crl.obj",
+".\Output\wind_crl.obj" 
+TO ".\Output\WK06V1.7" 
+PRINT(".\Listings\WK06V1.m51") RAMSIZE(256) 
