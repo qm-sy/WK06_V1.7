@@ -1,11 +1,11 @@
-C51 COMPILER V9.60.7.0   WIND_CRL                                                          12/06/2024 16:45:37 PAGE 1   
+C51 COMPILER V9.60.7.0   WIND_CRL                                                          12/08/2024 02:25:36 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE WIND_CRL
 OBJECT MODULE PLACED IN .\Output\wind_crl.obj
-COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE Emembed\Src\wind_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\BSP\I
-                    -nc;.\Core\Inc;.\Drivers;.\Emembed\Inc;.\Emembed\Inc;.\Middlewares;.\SYSTEM) DEBUG OBJECTEXTEND PRINT(.\Listings\wind_crl
-                    -.lst) OBJECT(.\Output\wind_crl.obj)
+COMPILER INVOKED BY: D:\APP\Keil_STM32\C51\BIN\C51.EXE Emembed\Src\wind_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\BS
+                    -P\Inc;.\Core\Inc;.\Drivers;.\Emembed\Inc;.\Emembed\Inc;.\Middlewares;.\SYSTEM) DEBUG OBJECTEXTEND PRINT(.\Listings\wind_
+                    -crl.lst) OBJECT(.\Output\wind_crl.obj)
 
 line level    source
 
@@ -13,59 +13,58 @@ line level    source
    2          
    3          bit wind_bit = 0;
    4          
-   5          void wind_crl( uint8_t wind_num )
-   6          {
-   7   1      //    if(wind_bit == 1)       
-   8   1      //    {
-   9   1      //        switch(wind_num)
-  10   1      //        {
-  11   1      //            case 0:
-  12   1      ////                PWMStop();
-  13   1      //                break;
-  14   1      //            
-  15   1      //            case 1:
-  16   1      //                PWMSet(2000);
-  17   1      //                break;
-  18   1      //            
-  19   1      //            case 2:
-  20   1      //                PWMSet(2400);
-  21   1      //                break;
-  22   1      //            
-  23   1      //            case 3:
-  24   1      //                PWMSet(2800);
-  25   1      //                break;
-  26   1      //            
-  27   1      //            case 4:
-  28   1      //                PWMSet(3200);
-  29   1      //                break;
-  30   1      //            
-  31   1      //            case 5:
-  32   1      //                PWMSet(3600);
-  33   1      //                break;
-  34   1      //            
-  35   1      //            case 6:
-  36   1      //                PWMSet(4000);
-  37   1      //                break;
-  38   1      //        }
-  39   1      //        
-  40   1      //    } else {
-  41   1      ////        PWMStop();
-  42   1      //    }
-  43   1      }
-*** WARNING C280 IN LINE 5 OF Emembed\Src\wind_crl.c: 'wind_num': unreferenced local variable
+   5          //void wind_crl( uint8_t wind_num )
+   6          //{
+   7          //    if(wind_bit == 1)       
+   8          //    {
+   9          //        switch(wind_num)
+  10          //        {
+  11          //            case 0:
+  12          ////                PWMStop();
+  13          //                break;
+  14          //            
+  15          //            case 1:
+  16          //                PWMSet(2000);
+  17          //                break;
+  18          //            
+  19          //            case 2:
+  20          //                PWMSet(2400);
+  21          //                break;
+  22          //            
+  23          //            case 3:
+  24          //                PWMSet(2800);
+  25          //                break;
+  26          //            
+  27          //            case 4:
+  28          //                PWMSet(3200);
+  29          //                break;
+  30          //            
+  31          //            case 5:
+  32          //                PWMSet(3600);
+  33          //                break;
+  34          //            
+  35          //            case 6:
+  36          //                PWMSet(4000);
+  37          //                break;
+  38          //        }
+  39          //        
+  40          //    } else {
+  41          ////        PWMStop();
+  42          //    }
+  43          //}
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =      6    ----
+   CODE SIZE        =   ----    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =   ----       1
+   XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
-C51 COMPILER V9.60.7.0   WIND_CRL                                                          12/06/2024 16:45:37 PAGE 2   
-
    BIT SIZE         =      1    ----
+C51 COMPILER V9.60.7.0   WIND_CRL                                                          12/08/2024 02:25:36 PAGE 2   
+
 END OF MODULE INFORMATION.
 
 
-C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

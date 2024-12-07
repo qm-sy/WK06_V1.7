@@ -5,6 +5,6 @@
 
 extern bit wind_bit;
 
-void wind_crl( uint8_t wind_num );
+//void wind_crl( uint8_t wind_num );
 
 #endif 

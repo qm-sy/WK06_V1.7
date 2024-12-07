@@ -1,11 +1,11 @@
-C51 COMPILER V9.60.7.0   SERIAL_COMPORT                                                    12/06/2024 16:45:37 PAGE 1   
+C51 COMPILER V9.60.7.0   SERIAL_COMPORT                                                    12/08/2024 02:25:36 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SERIAL_COMPORT
 OBJECT MODULE PLACED IN .\Output\serial_comport.obj
-COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE BSP\Src\serial_comport.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\BSP
-                    -\Inc;.\Core\Inc;.\Drivers;.\Emembed\Inc;.\Emembed\Inc;.\Middlewares;.\SYSTEM) DEBUG OBJECTEXTEND PRINT(.\Listings\serial
-                    -_comport.lst) OBJECT(.\Output\serial_comport.obj)
+COMPILER INVOKED BY: D:\APP\Keil_STM32\C51\BIN\C51.EXE BSP\Src\serial_comport.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\
+                    -BSP\Inc;.\Core\Inc;.\Drivers;.\Emembed\Inc;.\Emembed\Inc;.\Middlewares;.\SYSTEM) DEBUG OBJECTEXTEND PRINT(.\Listings\ser
+                    -ial_comport.lst) OBJECT(.\Output\serial_comport.obj)
 
 line level    source
 
@@ -62,23 +62,23 @@ line level    source
   51          //    }
   52          //}
   53          
-C51 COMPILER V9.60.7.0   SERIAL_COMPORT                                                    12/06/2024 16:45:37 PAGE 2   
+C51 COMPILER V9.60.7.0   SERIAL_COMPORT                                                    12/08/2024 02:25:36 PAGE 2   
 
-  54          char putchar( char c )  // 串口重定向需要添加头文件stdio.h
-  55          {
-  56   1          S4BUF = c;
-  57   1          while(busy_flag4);
-  58   1          busy_flag4 = 1;
-  59   1          return c;
-  60   1      }
+  54          // char putchar( char c )  // 串口重定向需要添加头文件stdio.h
+  55          // {
+  56          //     S4BUF = c;
+  57          //     while(busy_flag4);
+  58          //     busy_flag4 = 1;
+  59          //     return c;
+  60          // }
   61          
-  62          // char putchar(char c)  // 串口重定向需要添加头文件stdio.h
-  63          // {
-  64          //     SBUF = c;
-  65          //     while(!TI);
-  66          //     TI = 0;
-  67          //     return c;
-  68          // }
+  62          char putchar(char c)  // 串口重定向需要添加头文件stdio.h
+  63          {
+  64   1          SBUF = c;
+  65   1          while(!TI);
+  66   1          TI = 0;
+  67   1          return c;
+  68   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE

@@ -51,18 +51,18 @@ void Uart4_SendStr( uint8_t *sendstr )
 //    }
 //}
 
-char putchar( char c )  // 串口重定向需要添加头文件stdio.h
-{
-    S4BUF = c;
-    while(busy_flag4);
-    busy_flag4 = 1;
-    return c;
-}
-
-// char putchar(char c)  // 串口重定向需要添加头文件stdio.h
+// char putchar( char c )  // 串口重定向需要添加头文件stdio.h
 // {
-//     SBUF = c;
-//     while(!TI);
-//     TI = 0;
+//     S4BUF = c;
+//     while(busy_flag4);
+//     busy_flag4 = 1;
 //     return c;
 // }
+
+char putchar(char c)  // 串口重定向需要添加头文件stdio.h
+{
+    SBUF = c;
+    while(!TI);
+    TI = 0;
+    return c;
+}

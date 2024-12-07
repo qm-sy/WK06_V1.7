@@ -1,11 +1,11 @@
-C51 COMPILER V9.60.7.0   TIMER                                                             12/06/2024 16:45:36 PAGE 1   
+C51 COMPILER V9.60.7.0   TIMER                                                             12/08/2024 02:25:36 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE TIMER
 OBJECT MODULE PLACED IN .\Output\timer.obj
-COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE Core\Src\timer.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\BSP\Inc;.\C
-                    -ore\Inc;.\Drivers;.\Emembed\Inc;.\Emembed\Inc;.\Middlewares;.\SYSTEM) DEBUG OBJECTEXTEND PRINT(.\Listings\timer.lst) OBJ
-                    -ECT(.\Output\timer.obj)
+COMPILER INVOKED BY: D:\APP\Keil_STM32\C51\BIN\C51.EXE Core\Src\timer.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\BSP\Inc;
+                    -.\Core\Inc;.\Drivers;.\Emembed\Inc;.\Emembed\Inc;.\Middlewares;.\SYSTEM) DEBUG OBJECTEXTEND PRINT(.\Listings\timer.lst) 
+                    -OBJECT(.\Output\timer.obj)
 
 line level    source
 
@@ -21,49 +21,50 @@ line level    source
   10          
   11          void Tim0_Init( void )         //11.0592Mhz  10ms
   12          {
-  13   1          AUXR &= 0x7F;                       //定时器时钟12T模式
-  14   1              TMOD &= 0xF0;                   //设置定时器模式
-  15   1      
-  16   1              TL0 = 0x00;                             //设置定时初始值
-  17   1              TH0 = 0xDC;                             //设置定时初始值
-  18   1      
-  19   1              TF0 = 0;                                //清除TF0标志
-  20   1              TR0 = 1;                                //定时器0开始计时
-  21   1      
-  22   1              ET0 = 1;            //打开IE-ET0，TIM0中断
-  23   1      }
-  24          
-  25          void Tim1_Init( void )            //11.0592Mhz  10ms  16位手动装载
-  26          {   
-  27   1              AUXR &= 0xBF;                //定时器时钟12T模式
-  28   1              TMOD &= 0x0F;                //设置定时器模式
-  29   1              TMOD |= 0x10;                //设置定时器模式   手动/自动开关
-  30   1      }
-  31          
-  32          void Tim3_Init( void )            //10毫秒@11.0592MHz
-  33          {
-  34   1              T4T3M &= 0xFD;               //定时器时钟12T模式
-  35   1              T3L = 0x00;                  //设置定时初始值
-  36   1              T3H = 0xDC;                  //设置定时初始值
-  37   1              T4T3M |= 0x08;              //定时器3开始计时
-  38   1          
-  39   1          IE2 |= 0x20;                //打开IE2-ET2，TIM3中断
-  40   1      }
-  41          
-  42          void ET0_Init( void )
-  43          {
-  44   1          IT0 = 1;   //下降沿触发过零检测信号
-  45   1          EX0 = 1;
-  46   1      }
-  47          
+  13   1          AUXR |= 0X80;               //修改计数速率，定时器时钟设置为12T模式
+  14   1              
+  15   1              TMOD &= 0XF0;           //清空TIM0需要配置的低四位（低四位是TIM0,高四位是TIM1）
+  16   1      
+  17   1              TH0 = 0XCD;                     // TH0 高四位  TL0 低四位
+  18   1              TL0 = 0XD4;                     //通过计算得出的值，计算公式在下面
+  19   1              
+  20   1              TF0 = 0;                        //清除TC0N-TF0  中断溢出标志，溢出后自动置1，CPU响应中断后置硬件清0
+  21   1              TR0 = 1;                        //TCON-TR0  TIM0开始计数启动
+  22   1      
+  23   1              ET0 = 1;            //打开IE-ET0，TIM0中断
+  24   1      }
+  25          
+  26          void Tim1_Init( void )            //11.0592Mhz  10ms  16位手动装载
+  27          {   
+  28   1              AUXR &= 0xBF;                //定时器时钟12T模式
+  29   1              TMOD &= 0x0F;                //设置定时器模式
+  30   1              TMOD |= 0x10;                //设置定时器模式   手动/自动开关
+  31   1      }
+  32          
+  33          void Tim3_Init( void )            //10毫秒@11.0592MHz
+  34          {
+  35   1              T4T3M &= 0xFD;               //定时器时钟12T模式
+  36   1              T3L = 0x00;                  //设置定时初始值
+  37   1              T3H = 0xDC;                  //设置定时初始值
+  38   1              T4T3M |= 0x08;              //定时器3开始计时
+  39   1          
+  40   1          IE2 |= 0x20;                //打开IE2-ET2，TIM3中断
+  41   1      }
+  42          
+  43          void ET0_Init( void )
+  44          {
+  45   1          IT0 = 1;   //下降沿触发过零检测信号
+  46   1          EX0 = 1;
+  47   1      }
+  48          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
    CODE SIZE        =     50    ----
    CONSTANT SIZE    =   ----    ----
-   XDATA SIZE       =   ----    ----
-C51 COMPILER V9.60.7.0   TIMER                                                             12/06/2024 16:45:36 PAGE 2   
+C51 COMPILER V9.60.7.0   TIMER                                                             12/08/2024 02:25:36 PAGE 2   
 
+   XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----

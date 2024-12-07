@@ -2,8 +2,8 @@
 
 bit wind_bit = 0;
 
-void wind_crl( uint8_t wind_num )
-{
+//void wind_crl( uint8_t wind_num )
+//{
 //    if(wind_bit == 1)       
 //    {
 //        switch(wind_num)
@@ -40,4 +40,4 @@ void wind_crl( uint8_t wind_num )
 //    } else {
 ////        PWMStop();
 //    }
-}
+//}

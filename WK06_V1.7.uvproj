@@ -480,6 +480,16 @@
               <FileType>1</FileType>
               <FilePath>.\Emembed\Src\wind_crl.c</FilePath>
             </File>
+            <File>
+              <FileName>screen.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Emembed\Src\screen.c</FilePath>
+            </File>
+            <File>
+              <FileName>temp_monitor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Emembed\Src\temp_monitor.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
