@@ -26,7 +26,7 @@ void main( void )
     {
     //     temp = (uint8_t)get_temp(1);
     //    // PWM7_Crl(5);
-    //     PWM8_Crl(1);
+         PWM8_Crl(2);
     //     delay_ms(560);
     //     printf(" now temp is: %d \r\n",(int)temp);
         // Uart1_SendStr("t18.txt=\"cccc...\"");        
@@ -35,12 +35,21 @@ void main( void )
         // Uart1_Sendbyte(0xff);
         // receive_form_screen();
         // //temp_sacn();
-        // relay = 1;
-        // delay_ms(1000);
-        // relay = 0;
-        // delay_ms(1000);
+        //   extern_24out2 = 1;
+        //   delay_ms(1000);
+        //   extern_24out2 = 0;
+        //   delay_ms(1000);
         // OUT24 = 1;
         // //rs485();
+        if(extern_24in==1)
+        {
+            buzzer = 1;
+        }
+        if(extern_24in==0)
+        {
+            buzzer = 0;
+        }
+        OUT24_2 = 0;
 
     }
     

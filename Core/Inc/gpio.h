@@ -21,10 +21,18 @@ sbit heating_channel2 = P4^2;
 sbit heating_channel3 = P4^3;
 sbit heating_channel4 = P4^4;
 
-sbit OUT24            = P2^7;
+sbit OUT24_2            = P2^7;
 sbit relay            = P2^6;
 
 sbit buzzer           = P7^5;
+
+sbit extern_24out2    = P3^5;
+sbit extern_24out3    = P5^0;
+
+sbit extern_pwm6      = P2^1;
+
+sbit extern_24in      = P7^4;
+
 void GPIO_Init( void );
     
 #endif

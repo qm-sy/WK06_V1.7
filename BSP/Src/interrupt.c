@@ -5,10 +5,10 @@ static bit zero_flag = 0;       //外部中断（过零检测）et0响应flag �
 bit busy_flag1    = 0;          //串口1等待接收标志位
 bit busy_flag4    = 0;          //串口4等待接收标志位
 
-bit heating_flag1 = 0;
-bit heating_flag2 = 0;
-bit heating_flag3 = 0;
-bit heating_flag4 = 0;
+bit heating_flag1 = 1;
+bit heating_flag2 = 1;
+bit heating_flag3 = 1;
+bit heating_flag4 = 1;
 
 uint8_t TX1_buf[128];
 uint8_t TX1_send_bytelength; 
@@ -19,7 +19,7 @@ uint8_t  RX1_buf[128];    //SBUF RI缓冲区
 uint16_t RX1_rev_timeout;    //接收超时
 uint8_t  RX1_rev_bytenum = 0;     //接收计数
 
-uint16_t phase_shift_time = 58400;
+uint16_t phase_shift_time = 65520;
 
 void Uart1_ISR() interrupt 4 
 {   
@@ -82,7 +82,7 @@ void Uart4_ISR() interrupt 18 using 1
 
 void ET0_ISR(void) interrupt 0 
 {
-    heating_flag1 = heating_flag2 = heating_flag3 = heating_flag4 = 1;    
+    heating_channel1 = heating_channel2 = heating_channel3 = heating_channel4 = 1;    
     /*      延时移相        */
     TL1 = phase_shift_time;			    	//设置定时初始值
 	TH1 = phase_shift_time>>8;				//设置定时初始值
@@ -98,22 +98,10 @@ void Tim1_ISR(void) interrupt 3
 
     if( zero_flag == 1 )
     {
-        if( heating_flag1 == 1)
-        {
-            heating_channel1 = 0;
-        }
-        if( heating_flag2 == 1)
-        {
-            heating_channel2 = 0;
-        }
-        if( heating_flag3 == 1)
-        {
-            heating_channel3 = 0;
-        }
-        if( heating_flag4 == 1)
-        {
-            heating_channel4 = 0;
-        }
+        heating_channel1 = ~heating_flag1;
+        heating_channel2 = ~heating_flag2;
+        heating_channel3 = ~heating_flag3;
+        heating_channel4 = ~heating_flag4;
         /*      发送一个10us的脉冲      */
         zero_flag = 0;
 
