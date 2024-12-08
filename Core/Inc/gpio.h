@@ -21,7 +21,7 @@ sbit heating_channel2 = P4^2;
 sbit heating_channel3 = P4^3;
 sbit heating_channel4 = P4^4;
 
-sbit OUT24_2            = P2^7;
+sbit OUT24_2          = P2^7;
 sbit relay            = P2^6;
 
 sbit buzzer           = P7^5;

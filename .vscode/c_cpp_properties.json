@@ -3,17 +3,17 @@
         {
             "name": "Target 1",
             "includePath": [
-                "d:\\workspace\\WK06_V1.7\\BSP\\Inc",
-                "d:\\workspace\\WK06_V1.7\\Core\\Inc",
-                "d:\\workspace\\WK06_V1.7\\Drivers",
-                "d:\\workspace\\WK06_V1.7\\Emembed\\Inc",
-                "d:\\workspace\\WK06_V1.7\\Middlewares",
-                "d:\\workspace\\WK06_V1.7\\SYSTEM",
-                "D:\\APP\\Keil_v5\\C51\\INC",
-                "d:\\workspace\\WK06_V1.7",
-                "d:\\workspace\\WK06_V1.7\\Core\\Src",
-                "d:\\workspace\\WK06_V1.7\\BSP\\Src",
-                "d:\\workspace\\WK06_V1.7\\Emembed\\Src"
+                "e:\\workspace\\WK06_V1.7\\BSP\\Inc",
+                "e:\\workspace\\WK06_V1.7\\Core\\Inc",
+                "e:\\workspace\\WK06_V1.7\\Drivers",
+                "e:\\workspace\\WK06_V1.7\\Emembed\\Inc",
+                "e:\\workspace\\WK06_V1.7\\Middlewares",
+                "e:\\workspace\\WK06_V1.7\\SYSTEM",
+                "D:\\APP\\Keil_STM32\\C51\\INC",
+                "e:\\workspace\\WK06_V1.7",
+                "e:\\workspace\\WK06_V1.7\\Core\\Src",
+                "e:\\workspace\\WK06_V1.7\\BSP\\Src",
+                "e:\\workspace\\WK06_V1.7\\Emembed\\Src"
             ],
             "defines": [
                 "__C51__",

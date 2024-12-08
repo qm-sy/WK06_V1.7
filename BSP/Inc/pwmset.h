@@ -3,7 +3,11 @@
 
 #include "pwm.h"
 
-void PWM7_Crl( uint8_t num );
-void PWM8_Crl( uint8_t num );
+#define PWMx_5 5
+#define PWMx_6 6
+#define PWMx_7 7
+#define PWMx_8 8
+
+void PWM_Crl( uint8_t channel_num, uint8_t num );
 
 #endif 

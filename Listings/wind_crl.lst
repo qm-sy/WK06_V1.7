@@ -1,11 +1,11 @@
-C51 COMPILER V9.60.7.0   WIND_CRL                                                          12/08/2024 16:13:44 PAGE 1   
+C51 COMPILER V9.60.7.0   WIND_CRL                                                          12/08/2024 23:47:19 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE WIND_CRL
 OBJECT MODULE PLACED IN .\Output\wind_crl.obj
-COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE Emembed\Src\wind_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\BSP\I
-                    -nc;.\Core\Inc;.\Drivers;.\Emembed\Inc;.\Emembed\Inc;.\Middlewares;.\SYSTEM) DEBUG OBJECTEXTEND PRINT(.\Listings\wind_crl
-                    -.lst) OBJECT(.\Output\wind_crl.obj)
+COMPILER INVOKED BY: D:\APP\Keil_STM32\C51\BIN\C51.EXE Emembed\Src\wind_crl.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\BS
+                    -P\Inc;.\Core\Inc;.\Drivers;.\Emembed\Inc;.\Emembed\Inc;.\Middlewares;.\SYSTEM) DEBUG OBJECTEXTEND PRINT(.\Listings\wind_
+                    -crl.lst) OBJECT(.\Output\wind_crl.obj)
 
 line level    source
 
@@ -13,57 +13,61 @@ line level    source
    2          
    3          bit wind_bit = 0;
    4          
-   5          //void wind_crl( uint8_t wind_num )
-   6          //{
-   7          //    if(wind_bit == 1)       
-   8          //    {
-   9          //        switch(wind_num)
-  10          //        {
-  11          //            case 0:
-  12          ////                PWMStop();
-  13          //                break;
-  14          //            
-  15          //            case 1:
-  16          //                PWMSet(2000);
+   5          void wind_crl( uint8_t channel_num , uint8_t wind_num )
+   6          {
+   7   1          PWM_Crl( channel_num, wind_num );
+   8   1          eeprom_write_flag = 1;
+   9   1      }
+  10          //{
+  11          //    if(wind_bit == 1)       
+  12          //    {
+  13          //        switch(wind_num)
+  14          //        {
+  15          //            case 0:
+  16          ////                PWMStop();
   17          //                break;
   18          //            
-  19          //            case 2:
-  20          //                PWMSet(2400);
+  19          //            case 1:
+  20          //                PWMSet(2000);
   21          //                break;
   22          //            
-  23          //            case 3:
-  24          //                PWMSet(2800);
+  23          //            case 2:
+  24          //                PWMSet(2400);
   25          //                break;
   26          //            
-  27          //            case 4:
-  28          //                PWMSet(3200);
+  27          //            case 3:
+  28          //                PWMSet(2800);
   29          //                break;
   30          //            
-  31          //            case 5:
-  32          //                PWMSet(3600);
+  31          //            case 4:
+  32          //                PWMSet(3200);
   33          //                break;
   34          //            
-  35          //            case 6:
-  36          //                PWMSet(4000);
+  35          //            case 5:
+  36          //                PWMSet(3600);
   37          //                break;
-  38          //        }
-  39          //        
-  40          //    } else {
-  41          ////        PWMStop();
-  42          //    }
-  43          //}
+  38          //            
+  39          //            case 6:
+  40          //                PWMSet(4000);
+  41          //                break;
+  42          //        }
+  43          //        
+  44          //    } else {
+  45          ////        PWMStop();
+  46          //    }
+  47          //}
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   ----    ----
+   CODE SIZE        =      6    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.7.0   WIND_CRL                                                          12/08/2024 23:47:19 PAGE 2   
+
    PDATA SIZE       =   ----    ----
    DATA SIZE        =   ----    ----
    IDATA SIZE       =   ----    ----
    BIT SIZE         =      1    ----
-C51 COMPILER V9.60.7.0   WIND_CRL                                                          12/08/2024 16:13:44 PAGE 2   
-
 END OF MODULE INFORMATION.
 
 
