@@ -21,16 +21,27 @@ void main( void )
     ET0_Init();
     PWM_Init();  
     eeprom_data_init(); 
+
     EA = 1;
 
     printf("======== code start ========\r\n");  
+
     while (1)
     {
         receive_form_screen();
-        wind_crl( PWMx_5,2);
-        delay_us(1000);
-        temp_sacn();
-        eeprom_read_write();
+        // if (DC_24in==1)
+        // {
+        //     buzzer = 1;
+        // }else
+        // {
+        //     buzzer = 0;
+        // }
+        
+        //temp_sacn();
+        //eeprom_read_write();
+        //wind_crl(7,4);
+
+
     }
     
 }

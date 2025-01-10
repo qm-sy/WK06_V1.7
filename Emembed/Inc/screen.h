@@ -8,6 +8,7 @@
 #include "temp_monitor.h"
 #include "eeprom_read_write.h"
 #include "interrupt.h"
+#include "wind_crl.h"
 
 void screen_init();
 void screen_send_over();

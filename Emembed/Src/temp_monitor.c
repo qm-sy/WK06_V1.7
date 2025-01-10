@@ -10,7 +10,7 @@ void temp_sacn()
     uint8_t i;
     uint8_t temp;
 
-    for ( i = 1; i < 5; i++)
+    for ( i = 1; i < 4; i++)
     {
         temp = get_temp(i);
         if ( i == 1 )

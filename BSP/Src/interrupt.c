@@ -68,12 +68,12 @@ void Tim0_ISR( void ) interrupt 1   //1ms
 
 void Uart4_ISR() interrupt 18 using 1
 {   
-    if(S4CON & S4RI)  
+    if( S4CON & S4RI )  
     {
         S4CON &= ~S4RI;
     }
     
-    if(S4CON & S4TI)            
+    if( S4CON & S4TI )            
     {  
         S4CON &= ~S4TI;  
         busy_flag4 = 0;
@@ -82,7 +82,7 @@ void Uart4_ISR() interrupt 18 using 1
 
 void ET0_ISR(void) interrupt 0 
 {
-    heating_channel1 = heating_channel2 = heating_channel3 = heating_channel4 = 1;    
+    heating_channel1 = heating_channel2 = heating_channel3 = 1;    
     /*      延时移相        */
     TL1 = phase_shift_time;			    	//设置定时初始值
 	TH1 = phase_shift_time>>8;				//设置定时初始值
@@ -101,7 +101,7 @@ void Tim1_ISR(void) interrupt 3
         heating_channel1 = ~heating_flag1;
         heating_channel2 = ~heating_flag2;
         heating_channel3 = ~heating_flag3;
-        heating_channel4 = ~heating_flag4;
+        //heating_channel4 = ~heating_flag4;
         /*      发送一个10us的脉冲      */
         zero_flag = 0;
 
@@ -110,7 +110,7 @@ void Tim1_ISR(void) interrupt 3
     }
     else
     {
-        heating_channel1 = heating_channel2 = heating_channel3 = heating_channel4 = 1;     //1-0-1的脉冲 2us
+        heating_channel1 = heating_channel2 = heating_channel3 = 1;     //1-0-1的脉冲 2us
         TR1 = 0;			    	   
         ET1 = 0;                  //定时器关闭计时   
     }

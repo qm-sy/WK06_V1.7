@@ -2,7 +2,7 @@
 
 uint8_t screen_hand_flag = 0;
 
-void receive_form_screen( void )
+void receive_form_screen ( void )
 {
     if( RX1_rev_end_flag == 1 )
     {
@@ -11,11 +11,12 @@ void receive_form_screen( void )
         {
             switch(RX1_buf[1])
             { 
-                case SLAVE_ADDR_SCREEN:     //屏幕connect 0x63
+                 case SLAVE_ADDR_SCREEN:     //屏幕connect 0x63
                     screen_init();
                     break;
                     
-                case 0xA1:                  //写入温度设定值
+                case 0xA1:                  //写入温度设定值.
+
                     setting_temp1 = RX1_buf[2];
                     setting_temp2 = RX1_buf[3];
                     setting_temp3 = RX1_buf[4];
@@ -26,29 +27,34 @@ void receive_form_screen( void )
                     break;
                 
                 case 0xA2:                
-
+                    buzzer = RX1_buf[2];
                     break;
 
                 case 0xA3:                  
-
+                    wind_crl(7,RX1_buf[2]);
+                    wind_crl(8,RX1_buf[2]);
                     break;
                 
                 case 0xA4:                
-
+                    relay = RX1_buf[2];
                     break;
 
                 case 0xA5:                  
-
+                    DC_24out2 = RX1_buf[2];
                     break;
                 
                 case 0xA6:                  
-
+                    if(RX1_buf[2] == 1)
+                    {
+                        heating_flag1 = heating_flag2 = heating_flag3 = heating_flag4 = 1; 
+                    }else
+                    {
+                        heating_flag1 = heating_flag2 = heating_flag3 = heating_flag4 = 0; 
+                    }
                     break;
             }
         }
     }
-
-
 }
 
 void screen_init()

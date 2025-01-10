@@ -16,7 +16,8 @@
         "screen.h": "c",
         "sys.h": "c",
         "eeprom_read_write.h": "c",
-        "wind_crl.h": "c"
+        "wind_crl.h": "c",
+        "ILI9488.C": "cpp"
     },
     "C_Cpp.errorSquiggles": "disabled"
 }

@@ -1,11 +1,11 @@
-C51 COMPILER V9.60.7.0   PWM                                                               12/08/2024 23:47:19 PAGE 1   
+C51 COMPILER V9.60.7.0   PWM                                                               12/24/2024 11:00:38 PAGE 1   
 
 
 C51 COMPILER V9.60.7.0, COMPILATION OF MODULE PWM
 OBJECT MODULE PLACED IN .\Output\pwm.obj
-COMPILER INVOKED BY: D:\APP\Keil_STM32\C51\BIN\C51.EXE Core\Src\pwm.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\BSP\Inc;.\
-                    -Core\Inc;.\Drivers;.\Emembed\Inc;.\Emembed\Inc;.\Middlewares;.\SYSTEM) DEBUG OBJECTEXTEND PRINT(.\Listings\pwm.lst) OBJE
-                    -CT(.\Output\pwm.obj)
+COMPILER INVOKED BY: D:\APP\Keil_v5\C51\BIN\C51.EXE Core\Src\pwm.c LARGE OPTIMIZE(8,SPEED) BROWSE INCDIR(.\BSP\Inc;.\Cor
+                    -e\Inc;.\Drivers;.\Emembed\Inc;.\Emembed\Inc;.\Middlewares;.\SYSTEM) DEBUG OBJECTEXTEND PRINT(.\Listings\pwm.lst) OBJECT(
+                    -.\Output\pwm.obj)
 
 line level    source
 
@@ -13,82 +13,39 @@ line level    source
    2          
    3          void PWM_Init( void )
    4          {
-   5   1              // P_SW2 |= 0X80;  
+   5   1              P_SW2     |= 0X80;  
    6   1              
-   7   1          // PWMB_PS |= 0x00;            //高级 PWM 通道输出脚选择位  C7PS:00-P2.2  C8PS:00-P2.3
+   7   1          PWMB_PS   |= 0x00;          //高级 PWM 通道 PWM5-P2.0  PWM6-P2.1N PWM7-P2.2  PWM8-P2.3
    8   1          
-   9   1          // PWMB_CCER2 = 0x00;          //写 CCMRx 前必须先清零 CCxE 关闭通道
-  10   1          // PWMB_CCMR3 = 0x70;          //输入捕获n滤波器选择 PWM7
-  11   1          // PWMB_CCMR4 = 0x70;          //输入捕获n滤波器选择 PWM8
-  12   1          // PWMB_CCER2 = 0x11;          //配置通道PWM7 & PWM8 输出使能和极性 
-  13   1      
-  14   1          // PWMB_ARR = 0x0452;          //设置自动重装载寄存器值
-  15   1                       
-  16   1          // PWMB_PSCR = 0X0000;         //设置频率   频率越大 波形越平滑
-  17   1          // PWMB_CCR7 = 0x012C;         //设置占空比
-  18   1          // PWMB_CCR8 = 0x012C;         //设置占空比
+   9   1          PWMB_CCER1 = 0x00;          //清零CC5E、CC6E关闭通道
+  10   1          PWMB_CCER2 = 0x00;          //清零CC7E、CC8E关闭通道
+  11   1      
+  12   1          PWMB_CCMR1 = 0X70;          //输入捕获n滤波器选择 PWM5
+  13   1          PWMB_CCMR2 = 0X70;          //输入捕获n滤波器选择 PWM6
+  14   1          PWMB_CCMR3 = 0x70;          //输入捕获n滤波器选择 PWM7
+  15   1          PWMB_CCMR4 = 0x70;          //输入捕获n滤波器选择 PWM8
+  16   1          
+  17   1          PWMB_CCER1 = 0x11;          //配置通道PWM5 & PWM6 输出使能和极性 
+  18   1          PWMB_CCER2 = 0x11;          //配置通道PWM7 & PWM8 输出使能和极性 
   19   1      
-  20   1          // PWMB_ENO |= 0x50;           //使能 PWM7 & PWM8 输出
-  21   1      
-  22   1      /*              pwm8                */
-  23   1         PWMB_PS &= 0x3F;            //高级 PWM 通道输出脚选择位  选择 PWM8_1 P2.3通道
-  24   1         
-  25   1         PWMB_CCER2 = 0x00;          //写 CCMRx 前必须先清零 CCxE 关闭通道
-  26   1         PWMB_CCMR4 = 0x70;          //通道模式配置  选择PWM模式2
-  27   1         PWMB_CCER2 = 0x10;          //配置通道输出使能和极性 
-  28   1      
-  29   1         PWMB_ARR = 0x0452;          //设置自动重装载寄存器值
-  30   1                      
-  31   1         PWMB_PSCR = 0X0008;         //设置频率   频率越大 波形越平滑
-  32   1         PWMB_CCR8 = 0x012C;         //设置占空比
-  33   1      
-  34   1         PWMB_ENO |= 0x40;           //使能 PWM8 输出
-  35   1      
-  36   1         PWMB_BKR = 0x80;            //使能主输出
-  37   1         PWMB_CR1 |= 0x01;           //将CEN2位置1，开始计时       
-  38   1      
-  39   1      /*              pwm6                */
-  40   1          // PWMB_PS &= 0x00;            //高级 PWM 通道输出脚选择位  选择 PWM8_1 P2.3通道
-  41   1          
-  42   1          // PWMB_CCER1 = 0x00;          //写 CCMRx 前必须先清零 CCxE 关闭通道
-  43   1          // PWMB_CCMR2 = 0x70;          //通道模式配置  选择PWM模式2
-  44   1          // PWMB_CCER1 = 0x10;          //配置通道输出使能和极性 
-  45   1      
-  46   1          // PWMB_ARR = 0x0452;          //设置自动重装载寄存器值
-  47   1                       
-  48   1          // PWMB_PSCR = 0X0008;         //设置频率   频率越大 波形越平滑
-  49   1          // PWMB_CCR6 = 0x012C;         //设置占空比
-  50   1      
-  51   1          // PWMB_ENO |= 0x04;           //使能 PWM8 输出
-  52   1      
-  53   1          // PWMB_BKR = 0x80;            //使能主输出
-C51 COMPILER V9.60.7.0   PWM                                                               12/08/2024 23:47:19 PAGE 2   
-
-  54   1          // PWMB_CR1 |= 0x01;           //将CEN2位置1，开始计时    
-  55   1          
-  56   1          
-  57   1      //     PWMB_PS&=0x00;            //高级 PWM 通道输出脚选择位  选择 PWM8_1 P2
-             -.3通道  
-  58   1      
-  59   1      //     PWMB_CCER1=0x00;          //写 CCMRx 前必须先清零 CCxE 关闭通道  
-  60   1      //     PWMB_CCMR2=0x70;          //通道模式配置  选择PWM模式2  
-  61   1      //     PWMB_CCER1=0x10;          //配置通道输出使能和极性   
-  62   1      //      
-  63   1      //     PWMB_ARR=0x0452;          //设置自动重装载寄存器值  
-  64   1      //     
-  65   1      //     PWMB_PSCR=0X0008;         //设置频率   频率越大 波形越平滑  
-  66   1      //     PWMB_CCR6=0x012C;         //设置占空比  
-  67   1      //      
-  68   1      //     PWMB_ENO|=0x04;           //使能 PWM8 输出  
-  69   1      //      
-  70   1      //     PWMB_BKR=0x80;            //使能主输出  
-  71   1      //     PWMB_CR1|=0x01;           //将CEN2位置1，开始计时
-  72   1      }
-  73          
+  20   1          PWMB_ARR   = 0x0452;        //设置自动重装载寄存器值
+  21   1                       
+  22   1          PWMB_PSCR  = 0x0008;        //设置频率   频率越大 波形越平滑  1ms
+  23   1          PWMB_CCR5  = 0x012C;        //设置PWM5占空比
+  24   1          PWMB_CCR6  = 0x012C;        //设置PWM6占空比
+  25   1          PWMB_CCR7  = 0x012C;        //设置PWM7占空比
+  26   1          PWMB_CCR8  = 0x012C;        //设置PWM8占空比
+  27   1      
+  28   1          PWMB_ENO  |= 0x55;          //使能 PWM5 & PWM6 & PWM7 & PWM8 输出
+  29   1      
+  30   1          PWMB_BKR   = 0x80;          //使能主输出
+  31   1          PWMB_CR1  |= 0x01;          //将CEN2位置1，开始计时        
+  32   1      }
+  33          
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =     74    ----
+   CODE SIZE        =    107    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
